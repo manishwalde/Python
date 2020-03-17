@@ -1,0 +1,98 @@
+Install PyTest
+==========================================================================
+pip install pytest==2.9.1 
+pip install pytest-django
+pip install pytest-cov
+pip install mixer
+
+py.test -h
+
+Run pytests
+==========================================================================
+py.test
+py.test test_sample1.py
+pytest test_sample1.py
+
+Option 1) Run tests by substring matching using -k
+--------------------------------------------------------------------------
+py.test -k method1 -v
+pytest -k -v "method1 or add"
+pytest -k -v "meth od1 and add"
+-k <expression> is used to represent the substring to match
+-v increases the verbosity
+
+Option 2) Run single test method from file using ::
+--------------------------------------------------------------------------
+py.test test_sample1.py::test_add
+
+
+Option 3) Run marked test in file using -m (mark - decorator = @pytest.mark.set1)
+--------------------------------------------------------------------------
+py.test test_sample1.py::test_add
+
+Option 4) Exist first -x (failure occoured exit   tests)
+--------------------------------------------------------------------------
+py.test -v -x
+
+Option 5) disable using stack trace usinng --tb=no
+--------------------------------------------------------------------------
+py.test -v --tb=no
+
+Option 6) maxfail --maxfail=2
+--------------------------------------------------------------------------
+py.test -v --maxfail=2
+
+Option 7) show skip reason of @skip decorator test (@pytest.mark.skip(reason="todo))
+--------------------------------------------------------------------------
+py.test -v -rsx
+
+Option 8) skipif condition @skipif decorator test (@pytest.mark.skipif (reason="todo))
+--------------------------------------------------------------------------
+py.test -v -rsx
+
+Option 9) execute print statement using -s OR --capture=no
+--------------------------------------------------------------------------
+py.test -v -s
+py.test -v --capture=no
+
+Option 10) quite mode using -q 
+--------------------------------------------------------------------------
+py.test -q 
+
+
+@pytest.mark.parametrize decorator
+==========================================================================
+@pytest.mark.parametrize('num1, num2, result',
+[
+{7,3,10},
+{'Hello', ' World', 'Hello World'},
+(10.5, 25.5, 36)
+])
+
+
+Using Fixture in pytest for datatbase connection
+==========================================================================
+Instead of using -
+db=None
+def setup_module(module):
+	print('-----------Setup------------')
+	global db
+	db = StudentDB()
+	db.connect('data.json')
+def teardown_module(module):
+	print('-----------Teardown------------')
+	db.close()
+
+USE Fixures
+@pytest.fixture(scope='module')
+def db():
+	print('-----------Setup------------')
+	db = StudentDB()
+	db.connect('data.json')
+	yield db
+	print('-----------Teardown------------')
+	db.close()
+
+
+Run Pytest inside Pycharm IDE
+ ==========================================================================

@@ -1,0 +1,55 @@
+Source - https://docs.djangoproject.com/en/3.0/intro/
+
+Install Django -
+python -m pip install Django
+
+Verify Django -
+python -m django --version
+
+Type python
+>>> import django
+>>> print(django.get_version())
+3.0
+
+
+Creating a project -
+django-admin startproject mysite
+
+Run The development server -
+python manage.py runserver
+python manage.py runserver 0:8000
+
+
+Creating the Polls app -
+python manage.py startapp polls
+
+
+Create Database migration -
+python manage.py migrate
+
+Make migration  - By running makemigrations, you’re telling Django that you’ve made some changes to your models
+python manage.py makemigrations polls
+
+The sqlmigrate command takes migration names and returns their SQL -
+python manage.py sqlmigrate polls 0001
+
+checks for any problems in your project without making migrations or touching the database -
+python manage.py check
+
+apply those changes to the database -
+python manage.py migrate
+
+Running tests -
+python manage.py test polls
+
+
+
+We’re using this instead of simply typing “python”, because manage.py sets the DJANGO_SETTINGS_MODULE environment variable, which gives Django the Python import path to your mysite/settings.py file. -
+python manage.py shell
+
+
+Creating an admin user -
+python manage.py createsuperuser
+
+Running Unit tests -
+python manage.py test polls
